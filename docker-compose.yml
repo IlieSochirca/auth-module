@@ -1,0 +1,12 @@
+version: '3'
+services:
+  auth:
+    build:
+      context: .
+    volumes:
+      - './src/:/src'
+    env_file:
+      - ./.env
+    ports:
+      - "8080:8080"
+    command: gunicorn --reload --workers=2 --threads=4 --worker-class=gthread --worker-tmp-dir /dev/shm auth.wsgi:application --bind 0.0.0.0:8080
